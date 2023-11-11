@@ -129,66 +129,86 @@ void exit_error(char* fmt, ...)
 }
 
 
-//portA data 51000000 (2 occurances)
-//portA command 51000005 (0)
-//t)
-//portB command 51000006 (2)
-//two string to store portA and portB
-//when read return null
-//use unsigned int to store data
-char port_A_data[100], port_B_data[100],port_A_command[100],port_B_command[100];
+/*portA data 51000000 
+portA command 51000002
+portB data 51000001
+portB command 51000006 */
 
-void append_to_string(char *dest, const char *src, size_t dest_size) {
-    size_t dest_len = strlen(dest);
-    size_t i;
-    // Ensure there's room in 'dest' for appending 'src' plus the null-terminator.
-    if(dest_len + strlen(src) >= dest_size) {
-        char *new_dest = (char *)malloc(strlen(dest) + 100); 
-        if(new_dest==NULL)exit_error("Sting allocation failed");
-        strcpy(new_dest,dest);
-        char* temp = dest;
-        dest = new_dest;
-        if(strlen(dest)>100)free(temp);
-    }
-    // Copy characters from 'src' to the end of 'dest'.
-    for(i = 0; src[i] != '\0'; i++) {
-        dest[dest_len + i] = src[i];
-    }
-    // Null-terminate the resulting string.
-    dest[dest_len + i] = '\0';
+/*strings used to store serial IO port writes*/
+char *port_A_data, *port_B_data, *port_A_command, *port_B_command;
+size_t port_A_data_n, port_A_data_p;
+size_t port_B_data_n, port_B_data_p;
+
+size_t port_A_data_size, port_A_command_size, port_B_data_size, port_B_command_size;
+#define BUF_STEP_SIZE 100
+
+/*used for appending commands and data to serial IO ports*/
+void append_to_string(char **dest, const char *src, size_t *dest_size) {
+   size_t dest_len = strlen(*dest);
+   size_t src_len = strlen(src);
+   if(dest_len + src_len + 1 > *dest_size)
+   {
+      char* temp = (char*)malloc(*dest_size + BUF_STEP_SIZE);
+      *dest_size += BUF_STEP_SIZE;
+      strcpy(temp, *dest);
+      strcat(temp, src);
+      free(*dest);
+      *dest = temp;
+   }
+   else
+   {
+      strcat(*dest, src);
+   }
+}
+
+/* read serial IO port define */
+unsigned char serial_IO_read(unsigned int address){
+    return 0xff; 
 }
 
 
-char* temp_func_name_read(unsigned int address){
-    return NULL; 
-}
-
-
-void temp_func_name_write(unsigned int address, int data){
+/* write serial IO port define */
+void serial_IO_write(unsigned int address, unsigned char data){
     char buffer[10];
-    sprintf(buffer, "%d", data);
+    sprintf(buffer, "%c", data);
     switch (address){
         case 0x51000000:
-            append_to_string(port_A_data, buffer, 100);
+            port_A_data_n++;
+            append_to_string(&port_A_data, buffer, &port_A_data_size);
+            if(data == '\n')
+            {
+               printf("portA::");
+               puts(port_A_data+port_A_data_p);
+               port_A_data_p = port_A_data_n;
+            }
             return;
-        case 0x51000005:
-            append_to_string(port_A_command, buffer, 100);
+        case 0x51000001:
+            port_B_data_n++;
+            append_to_string(&port_B_data, buffer, &port_B_data_size);
+            if(data == '\n')
+            {
+               printf("portB::");
+               puts(port_B_data+port_B_data_p);
+               port_B_data_p = port_A_data_n;
+            }
             return;
         case 0x51000002:
-            append_to_string(port_B_data, buffer, 100);
+            append_to_string(&port_A_command, buffer, &port_A_command_size);
             return;
         case 0x51000006:
-            append_to_string(port_B_command, buffer, 100);
+            append_to_string(&port_B_command, buffer, &port_B_command_size);
             return;
         default:
             exit_error("temp error msg%08x\n", address);
     }
 }
 
-int temp_func_name_check(unsigned int address) {
+
+/* check if it is requesting serial IO port */
+int serial_IO_check(unsigned int address) {
     switch (address) {
         case 0x51000000:
-        case 0x51000005:
+        case 0x51000001:
         case 0x51000002:
         case 0x51000006:
             return 1;
@@ -214,6 +234,7 @@ unsigned int obio_pio_port(unsigned int address) {
             return OBIO_PIO0;
         default:
             exit_error("Invalid OBIO PIO port address %08x\n", address);
+            return 0; //what should we return here?
     }
 }
 
@@ -258,7 +279,7 @@ int obio_pio_port_check(unsigned int address) {
 /* reads in 8 bits from memory array */
 unsigned int m68k_read_memory_8(unsigned int address) {
     if(obio_pio_port_check(address)) return obio_pio_port(address);
-    else if(temp_func_name_check(address))return temp_func_name_read(address);
+    else if(serial_IO_check(address)) return serial_IO_read(address);
     else if (address >= MAX_MEM) {
         if (address >= BOOTARG_START && address <= BOOTARG_END) {
             return bootarg[address - BOOTARG_START];
@@ -272,7 +293,7 @@ unsigned int m68k_read_memory_8(unsigned int address) {
 /* reads in 16 bits from memory array */
 unsigned int m68k_read_memory_16(unsigned int address) {
     if(obio_pio_port_check(address)) return obio_pio_port(address);
-    else if(temp_func_name_check(address))return temp_func_name_read(address);
+    else if(serial_IO_check(address))return serial_IO_read(address);
     else if (address >= MAX_MEM) {
         exit_error("Attempted to read byte(read_16) from address %08x beyond memory size\n", address);
     }
@@ -283,7 +304,7 @@ unsigned int m68k_read_memory_16(unsigned int address) {
 /* reads in 32 bits from memory array */
 unsigned int m68k_read_memory_32(unsigned int address) {
     if(obio_pio_port_check(address)) return obio_pio_port(address);
-    else if(temp_func_name_check(address))return temp_func_name_read(address);
+    else if(serial_IO_check(address))return serial_IO_read(address);
     else if (address >= MAX_MEM) {
         if(address == MEMAVAIL_ADDRESS) {
             printf("Read 32 from MEMAVAIL_ADDRESS (%08x) value: %08x\n",MEMAVAIL_ADDRESS, MEMAVAIL_VALUE_ADDRESS);
@@ -317,8 +338,8 @@ void m68k_write_memory_8(unsigned int address, unsigned int value) {
         obio_pio_port_write(address, value);
         return;
     }
-    else if(temp_func_name_check(address)){
-        temp_func_name_write(address, value);
+    else if(serial_IO_check(address)){
+        serial_IO_write(address, value);
         return;
     }
     if (address > MAX_MEM) {
@@ -338,8 +359,8 @@ void m68k_write_memory_16(unsigned int address, unsigned int value) {
         obio_pio_port_write(address, value);
         return;
     }
-    else if(temp_func_name_check(address)){
-        temp_func_name_write(address, value);
+    else if(serial_IO_check(address)){
+        serial_IO_write(address, value);
         return;
     }
     if (address > MAX_MEM) {
@@ -359,8 +380,8 @@ void m68k_write_memory_32(unsigned int address, unsigned int value) {
         obio_pio_port_write(address, value);
         return;
     }
-    else if(temp_func_name_check(address)){
-        temp_func_name_write(address, value);
+    else if(serial_IO_check(address)){
+        serial_IO_write(address, value);
         return;
     }
     if (address > MAX_MEM) {
@@ -418,6 +439,16 @@ void load_section(const struct section* sec) {
 }
 
 int main(int argc, char* argv[]) {
+   port_A_data = (char *)malloc(BUF_STEP_SIZE);
+   port_A_command = (char *)malloc(BUF_STEP_SIZE);
+   port_B_data = (char *)malloc(BUF_STEP_SIZE);
+   port_B_command = (char *)malloc(BUF_STEP_SIZE);
+   
+   port_A_data_p = port_A_data_n = 0;
+   port_B_data_p = port_A_data_n = 0;
+   
+   port_A_data_size =  port_A_command_size = port_B_data_size = port_B_command_size = BUF_STEP_SIZE;
+      
     unsigned int text_section_address = 0x0000c000; // Example address
 
     // Convert the address to bytes and store it at memory[4] to memory[7]
