@@ -458,7 +458,7 @@ int main(int argc, char* argv[]) {
     }
     m68k_init();
     m68k_set_cpu_type(M68K_CPU_TYPE_68030);
-    m6s8k_pulse_reset();
+    m6sx8k_pulse_reset();
 
     while(TRUE){
         m68k_execute(100000);
