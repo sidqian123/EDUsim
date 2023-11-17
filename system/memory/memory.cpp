@@ -29,6 +29,25 @@ void writeValue(std::vector<uint8_t>& memory, size_t address, T value) {
     }
 }
 
+void exit_error(const char* error_msg, unsigned int address) {
+    std::cerr << "Error: " << error_msg << address << std::endl;
+    std::exit(EXIT_FAILURE);
+}
+
+unsigned int Memory::readDisassembler16(unsigned int address) const {
+    if (address > rom.size()) {
+        exit_error("Disassembler attempted to read word from ROM address %08x\n", address);
+    }
+    return readValue<uint16_t>(rom, address);
+}
+
+unsigned int Memory::readDisassembler32(unsigned int address) const {
+    if (address > rom.size()) {
+        exit_error("Disassembler attempted to read long from ROM address %08x\n", address);
+    }
+    return readValue<uint32_t>(rom, address);
+}
+
 // Read methods
 uint8_t Memory::read8(size_t address) const { return readValue<uint8_t>(ram, address); }
 uint16_t Memory::read16(size_t address) const { return readValue<uint16_t>(ram, address); }
