@@ -1,9 +1,14 @@
-#include "Memory.h"
+#include "memory.hpp"
 using namespace std;
 #include <iostream>
 
 // Constructor
-Memory::Memory(size_t ramSize, size_t romSize) : ram(ramSize, 0), rom(romSize, 0) {}
+Memory::Memory(size_t ramSize, size_t romSize){}
+
+void Memory::initialize(size_t ramSize, size_t romSize) {
+    ram.resize(ramSize);
+    rom.resize(romSize);
+}
 
 // Template function for reading
 template <typename T>
@@ -36,14 +41,14 @@ void exit_error(const char* error_msg, unsigned int address) {
     std::exit(EXIT_FAILURE);
 }
 
-unsigned int Memory::readDisassembler16(unsigned int address) const {
+unsigned int Memory::readDisassembler16(unsigned int address) {
     if (address > rom.size()) {
         exit_error("Disassembler attempted to read word from ROM address %08x\n", address);
     }
     return readValue<uint16_t>(rom, address);
 }
 
-unsigned int Memory::readDisassembler32(unsigned int address) const {
+unsigned int Memory::readDisassembler32(unsigned int address) {
     if (address > rom.size()) {
         exit_error("Disassembler attempted to read long from ROM address %08x\n", address);
     }
@@ -51,10 +56,10 @@ unsigned int Memory::readDisassembler32(unsigned int address) const {
 }
 
 // Read methods
-uint8_t Memory::read8(size_t address) const { return readValue<uint8_t>(ram, address); }
-uint16_t Memory::read16(size_t address) const { return readValue<uint16_t>(ram, address); }
-uint32_t Memory::read32(size_t address) const { return readValue<uint32_t>(ram, address); }
-uint64_t Memory::read64(size_t address) const { return readValue<uint64_t>(ram, address); }
+uint8_t Memory::read8(size_t address) { return readValue<uint8_t>(ram, address); }
+uint16_t Memory::read16(size_t address) { return readValue<uint16_t>(ram, address); }
+uint32_t Memory::read32(size_t address) { return readValue<uint32_t>(ram, address); }
+uint64_t Memory::read64(size_t address) { return readValue<uint64_t>(ram, address); }
 
 // Write methods
 void Memory::write8(size_t address, uint8_t value) { writeValue<uint8_t>(ram, address, value); }

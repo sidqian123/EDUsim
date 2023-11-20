@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include "system/compact/c_compact.hpp"
 
 
 #define MAX_ROM 0xfff                           /* Memory size for rom */
@@ -17,21 +18,6 @@
 #define BOOTARG_START 0x42000000                /* Boot argument start address */
 #define BOOTARG_END (BOOTARG_START + 64 - 1)  /* Boot argument end address */
 
-/* Read/write macros */
-#define READ_8(BASE, ADDR) (BASE)[ADDR]
-#define READ_16(BASE, ADDR) (((BASE)[ADDR] << 8) | (BASE)[(ADDR) + 1])
-#define READ_32(BASE, ADDR) (                            \
-    ((BASE)[ADDR] << 24) |                               \
-    ((BASE)[(ADDR) + 1] << 16) |                         \
-    ((BASE)[(ADDR) + 2] << 8) |                          \
-    (BASE)[(ADDR) + 3]                                   \
-)
-
-#define WRITE_8(BASE, ADDR, VAL) (BASE)[ADDR] = (VAL)&0xff
-#define WRITE_16(BASE, ADDR, VAL) do {                   \
-    (BASE)[ADDR] = ((VAL) >> 8) & 0xff;                  \
-    (BASE)[(ADDR) + 1] = (VAL) & 0xff;                   \
-} while(0)
 #define WRITE_32(BASE, ADDR, VAL) do {                   \
     (BASE)[ADDR] = ((VAL) >> 24) & 0xff;                 \
     (BASE)[(ADDR) + 1] = ((VAL) >> 16) & 0xff;           \
@@ -276,140 +262,6 @@ int obio_pio_port_check(unsigned int address) {
     }
 }
 
-/* reads in 8 bits from memory array */
-unsigned int m68k_read_memory_8(unsigned int address) {
-    if(obio_pio_port_check(address)) return obio_pio_port(address);
-    else if(serial_IO_check(address)) return serial_IO_read(address);
-    else if (address >= MAX_MEM) {
-        if (address >= BOOTARG_START && address <= BOOTARG_END) {
-            return bootarg[address - BOOTARG_START];
-        }
-        exit_error("Attempted to read byte(read_8) from address %08x beyond memory size\n", address);
-    }
-    data_bus_recorder("m68k_read_memory_8", address, 1);
-    return READ_8(g_mem, address);
-}
-
-/* reads in 16 bits from memory array */
-unsigned int m68k_read_memory_16(unsigned int address) {
-    if(obio_pio_port_check(address)) return obio_pio_port(address);
-    else if(serial_IO_check(address))return serial_IO_read(address);
-    else if (address >= MAX_MEM) {
-        exit_error("Attempted to read byte(read_16) from address %08x beyond memory size\n", address);
-    }
-    data_bus_recorder("m68k_read_memory_16", address, 2);
-    return READ_16(g_mem, address);
-}
-
-/* reads in 32 bits from memory array */
-unsigned int m68k_read_memory_32(unsigned int address) {
-    if(obio_pio_port_check(address)) return obio_pio_port(address);
-    else if(serial_IO_check(address))return serial_IO_read(address);
-    else if (address >= MAX_MEM) {
-        if(address == MEMAVAIL_ADDRESS) {
-            printf("Read 32 from MEMAVAIL_ADDRESS (%08x) value: %08x\n",MEMAVAIL_ADDRESS, MEMAVAIL_VALUE_ADDRESS);
-            return MEMAVAIL_VALUE_ADDRESS;
-        }
-        else if(address == MEMAVAIL_VALUE_ADDRESS) {
-            printf("Read 32 from MEMAVAIL_VALUE_ADDRESS (%08x) value: %08x\n", MEMAVAIL_VALUE_ADDRESS, MAX_MEM+1);
-            return MAX_MEM+1;
-        }
-        else if(address == PLANEMASK_ADDRESS) {
-            printf("Read 32 from PLANEMASK_ADDRESS (%08x) value: %08x\n", PLANEMASK_ADDRESS, PLANEMASK_VALUE_ADDRESS);
-            return PLANEMASK_VALUE_ADDRESS;
-        }
-        else if(address == PLANEMASK_VALUE_ADDRESS) {
-            printf("Read 32 from PLANEMASK_VALUE_ADDRESS (%08x) value: %08x\n", PLANEMASK_VALUE_ADDRESS, 0xff);
-            return 0xff;
-        }
-        else if(address == BOOTARG_ADDRESS) {
-            printf("Read 32 from BOOTARG_ADDRESS (%08x) value: %08x\n", BOOTARG_ADDRESS, BOOTARG_START);
-            return BOOTARG_START;
-        }
-        else exit_error("Attempted to read byte(read_32) from address %08x beyond memory size\n", address);
-    }
-    data_bus_recorder("m68k_read_memory_32", address, 4);
-    return READ_32(g_mem, address);
-}
-
-/* write in 8 bits to memory array */
-void m68k_write_memory_8(unsigned int address, unsigned int value) {
-    if(obio_pio_port_check(address)) {
-        obio_pio_port_write(address, value);
-        return;
-    }
-    else if(serial_IO_check(address)){
-        serial_IO_write(address, value);
-        return;
-    }
-    if (address > MAX_MEM) {
-        exit_error("Attempted to write byte to address %08x beyond memory size\n", address);
-    }
-    // Check if the address is within the ROM range
-    if (address <= MAX_ROM) {
-        exit_error("Attempted to write byte to ROM address %08x", address);
-    }
-    WRITE_8(g_mem, address, value);
-    data_bus_recorder("m68k_write_memory_8", address, 1);
-}
-
-/* write in 16 bits to memory array */
-void m68k_write_memory_16(unsigned int address, unsigned int value) {
-    if(obio_pio_port_check(address)) {
-        obio_pio_port_write(address, value);
-        return;
-    }
-    else if(serial_IO_check(address)){
-        serial_IO_write(address, value);
-        return;
-    }
-    if (address > MAX_MEM) {
-        exit_error("Attempted to write byte to address %08x beyond memory size\n", address);
-    }
-    // Check if the address is within the ROM range
-    if (address <= MAX_ROM) {
-        exit_error("Attempted to write byte to ROM address %08x", address);
-    }
-    WRITE_16(g_mem, address, value);
-    data_bus_recorder("m68k_write_memory_16", address, 2);
-}
-
-/* write in 32 bits to memory array */
-void m68k_write_memory_32(unsigned int address, unsigned int value) {
-    if(obio_pio_port_check(address)) {
-        obio_pio_port_write(address, value);
-        return;
-    }
-    else if(serial_IO_check(address)){
-        serial_IO_write(address, value);
-        return;
-    }
-    if (address > MAX_MEM) {
-        exit_error("Attempted to write byte to address %08x beyond memory size\n", address);
-    }
-    // Check if the address is within the ROM range
-    if (address <= MAX_ROM) {
-        exit_error("Attempted to write byte to ROM address %08x", address);
-    }
-    WRITE_32(g_mem, address, value);
-    data_bus_recorder("m68k_write_memory_32", address, 4);
-}
-
-unsigned int m68k_read_disassembler_16(unsigned int address)
-{
-    if(address > MAX_ROM)
-        exit_error("Disassembler attempted to read word from ROM address %08x\n", address);
-    return READ_16(g_mem, address);
-}
-
-unsigned int m68k_read_disassembler_32(unsigned int address)
-{
-    if(address > MAX_ROM){
-        exit_error("Disassembler attempted to read long from ROM address %08x\n", address);
-    }
-    return READ_32(g_mem, address);
-}
-
 /* The sections to load */
 struct section sections[] = {
         {"text", 0x0000c000, 0x001f5bfc},
@@ -458,7 +310,7 @@ int main(int argc, char* argv[]) {
     }
     m68k_init();
     m68k_set_cpu_type(M68K_CPU_TYPE_68030);
-    m6sx8k_pulse_reset();
+    m68k_pulse_reset();
 
     while(TRUE){
         m68k_execute(100000);

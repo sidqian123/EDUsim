@@ -1,34 +1,49 @@
-# Compiler and compiler flags
+# Compiler settings
+CC = gcc
 CXX = g++
-CXXFLAGS = -Wall -g -I CPU -I device -I system -I system/memory
-
-# Define the main target
-TARGET = edusim
+CFLAGS = -g -Wall -I.
+CXXFLAGS = -g -Wall -I.
+LDFLAGS =
 
 # Source files
-SOURCES = edusim.cpp system/memory/memory.cpp
+SOURCES = edusim.cpp \
+          CPU/m68k/luna_cpu.cpp \
+          system/compact/c_compat.cpp \
+          system/memory/memory.cpp \
+          system/soft/m68k_in.c \
+          system/soft/m68kcpu.c \
+          system/soft/m68kdasm.c \
+          system/soft/m68kfpu.c \
+          system/soft/m68kmake.c \
+          system/soft/m68kops.c \
+          system/soft/sim.c
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)
+OBJECTS := $(OBJECTS:.c=.o)
 
-# First rule is the one executed when no parameters are fed to the Makefile
+# Build target
+TARGET = edusim
+
+# Default target
 all: $(TARGET)
 
-# Rule for linking the final program
+# Linking
 $(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
+	$(CXX) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
-# Rule for building each object file
+# Compiling C++ sources
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Rule for cleaning up
+# Compiling C sources
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean up
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f $(TARGET) $(OBJECTS)
 
-# Include the dependency files
--include $(SOURCES:.cpp=.d)
-
-# Rule for generating a dependency file by using the C preprocessor
-%.d: %.cpp
-	$(CXX) $(CXXFLAGS) -MM -MT '$(patsubst %.cpp,%.o,$<)' $< -MF $@
+# Dependencies
+system/compact/c_compat.o: system/compact/c_compact.hpp system/memory/memory.hpp
+system/memory/memory.o: system/memory/memory.hpp
