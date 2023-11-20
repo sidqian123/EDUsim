@@ -21,13 +21,49 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58ab39b7-4727-4aec-8bab-59afc23d0dce" name="Changes" comment="fixed memory">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="58ab39b7-4727-4aec-8bab-59afc23d0dce" name="Changes" comment="fix bug">
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/Hierarchy.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/history.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68k.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68k_in.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kconf.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kcpu.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kcpu.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kdasm.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kfpu.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kmake.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kmmu.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/out.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/sim.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/sim.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/compact/c_compact.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/system/compact/c_compact.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/memory/memory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/system/memory/memory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/memory/memory.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/system/memory/memory.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/sim.c" beforeDir="false" afterPath="$PROJECT_DIR$/system/soft/sim.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/c_cpp_properties.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/device/device.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/device/device.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/compact/c_compact.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/CPU/m68k/soft/compact/c_compact.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/compact/c_compat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CPU/m68k/soft/compact/c_compat.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/memory/memory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/device/memory/memory.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/memory/memory.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/device/memory/memory.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/Hierarchy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/history.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68k.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68k_in.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kconf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kcpu.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kcpu.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kdasm.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kfpu.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kmake.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kmmu.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kops.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/m68kops.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/out.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/sim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/soft/sim.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,24 +118,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/sidqian/Downloads/GitHub/softbsd/EDUsim",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sidqian/Downloads/GitHub/softbsd/EDUsim&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/CPU_sim" />
@@ -120,11 +156,6 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Makefile Application.all" />
       <item itemvalue="Makefile Application.edusim" />
@@ -143,7 +174,8 @@
       <workItem from="1700242500092" duration="74000" />
       <workItem from="1700242653492" duration="3530000" />
       <workItem from="1700440848970" duration="3783000" />
-      <workItem from="1700445253146" duration="1049000" />
+      <workItem from="1700445253146" duration="2449000" />
+      <workItem from="1700509449851" duration="1376000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1699717644351</created>
@@ -201,7 +233,21 @@
       <option name="project" value="LOCAL" />
       <updated>1700245876067</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="update memory">
+      <created>1700446311826</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1700446311826</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix bug">
+      <created>1700447054143</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700447054143</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +270,8 @@
     <MESSAGE value="update system.h" />
     <MESSAGE value="update memory class" />
     <MESSAGE value="fixed memory" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed memory" />
+    <MESSAGE value="update memory" />
+    <MESSAGE value="fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
   </component>
 </project>

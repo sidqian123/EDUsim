@@ -46,6 +46,6 @@ clean:
 	rm -f $(TARGET) $(OBJECTS)
 
 # Dependencies
-system/compact/c_compat.o: system/compact/c_compact.hpp system/memory/memory.hpp
-system/memory/memory.o: system/memory/memory.hpp
+system/compact/c_compat.o: CPU/m68k/soft/compact device/memory
+system/memory/memory.o: device/memory
 device/m68k_device.o: device/m68k_device.hpp
