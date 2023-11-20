@@ -1,4 +1,6 @@
 #include "Memory.h"
+using namespace std;
+#include <iostream>
 
 // Constructor
 Memory::Memory(size_t ramSize, size_t romSize) : ram(ramSize, 0), rom(romSize, 0) {}

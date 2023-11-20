@@ -9,11 +9,10 @@ class Memory {
 private:
     std::vector<uint8_t> ram;
     std::vector<uint8_t> rom;
-    const size_t MAX_ROM;
-    const size_t MAX_RAM;
+
 
 public:
-    Memory(size_t ramSize, size_t romSize, size_t maxRam, size_t maxRom);
+    Memory(size_t ramSize, size_t romSize);
 
     // Read functions for different bit lengths
     uint8_t read8(size_t address) const;
