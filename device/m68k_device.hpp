@@ -1,7 +1,7 @@
 #ifndef M68K_DEVICE_H
 #define M68K_DEVICE_H
 
-#include "device.h"
+#include "device.hpp"
 #define BUF_STEP_SIZE 100
 
 class m68k_device : public Device {
@@ -11,7 +11,7 @@ public:
 
     // Override the Device class's virtual methods
     virtual void write(unsigned int data,unsigned int address) override;
-    //todo: will need to update this accordingly based on the implementation of ports 
+    //todo: will need to update this accordingly based on the implementation of ports
     //might need to change the return type to char* or string
     virtual unsigned int read(unsigned int address) override;
 
@@ -37,6 +37,7 @@ private:
     unsigned int OBIO_PIO0B;	/* PIO-0 port B */
     unsigned int OBIO_PIO0C;    /* PIO-0 port C*/
     unsigned int OBIO_PIO0;	/* PIO-0 control */
+    void exit_error(const char *format, ...);
 };
 
 #endif // M68K_DEVICE_H

@@ -8,6 +8,7 @@ LDFLAGS =
 # Source files
 SOURCES = edusim.cpp \
           CPU/m68k/luna_cpu.cpp \
+          device/m68k_device.cpp \
           system/compact/c_compat.cpp \
           system/memory/memory.cpp \
           system/soft/m68k_in.c \
@@ -47,3 +48,4 @@ clean:
 # Dependencies
 system/compact/c_compat.o: system/compact/c_compact.hpp system/memory/memory.hpp
 system/memory/memory.o: system/memory/memory.hpp
+device/m68k_device.o: device/m68k_device.hpp

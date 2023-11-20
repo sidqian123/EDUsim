@@ -1,4 +1,4 @@
-#include "m68k_device.h"
+#include "m68k_device.hpp"
 
 m68k_device::m68k_device() {
     // Constructor implementation
@@ -13,10 +13,10 @@ m68k_device::m68k_device() {
    port_A_data_size =  port_A_command_size = port_B_data_size = port_B_command_size = BUF_STEP_SIZE;
 
    /* PIOs */
-    unsigned int OBIO_PIO0A	= 0x00;	/* PIO-0 port A */
-    unsigned int OBIO_PIO0B	= 0x00;	/* PIO-0 port B */
-    unsigned int OBIO_PIO0C	= 0x00;	/* PIO-0 port C*/
-    unsigned int OBIO_PIO0	= 0x00;	/* PIO-0 control */
+    OBIO_PIO0A	= 0x00;	/* PIO-0 port A */
+    OBIO_PIO0B	= 0x00;	/* PIO-0 port B */
+    OBIO_PIO0C	= 0x00;	/* PIO-0 port C*/
+    OBIO_PIO0	= 0x00;	/* PIO-0 control */
 }
 
 m68k_device::~m68k_device() {
@@ -25,6 +25,14 @@ m68k_device::~m68k_device() {
    free(port_A_command);
    free(port_B_data);
    free(port_B_command);
+}
+
+void m68k_device::exit_error(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    vfprintf(stderr, format, args);
+    va_end(args);
+    exit(EXIT_FAILURE);
 }
 
 void m68k_device::write(unsigned int data,unsigned int address) {
@@ -55,15 +63,15 @@ unsigned int m68k_device::read(unsigned int address) {
 
 
 /* read serial IO port define */
-unsigned char serial_IO_read(unsigned int address){
+unsigned char m68k_device::serial_IO_read(unsigned int address){
     return 0xff; 
 }
 
 
 /* write serial IO port define */
-void serial_IO_write(unsigned int address, unsigned char data){
+void m68k_device::serial_IO_write(unsigned int address, unsigned char data){
     char buffer[10];
-    sprintf(buffer, "%c", data);
+    printf(buffer, "%c", data);
     switch (address){
         case 0x51000000:
             port_A_data_n++;
@@ -98,7 +106,7 @@ void serial_IO_write(unsigned int address, unsigned char data){
 
 
 /* check if it is requesting serial IO port */
-int serial_IO_check(unsigned int address) {
+int m68k_device::serial_IO_check(unsigned int address) {
     switch (address) {
         case 0x51000000:
         case 0x51000001:
@@ -111,7 +119,7 @@ int serial_IO_check(unsigned int address) {
 }
 
 /* return PIO port define */
-unsigned int obio_pio_port(unsigned int address) {
+unsigned int m68k_device::obio_pio_port(unsigned int address) {
     switch (address) {
         case 0x49000000:
             printf("Read OBIO_PIO0A\n");
@@ -133,7 +141,7 @@ unsigned int obio_pio_port(unsigned int address) {
 
 
 /* write PIO port define */
-void obio_pio_port_write(unsigned int address, unsigned int value) {
+void m68k_device::obio_pio_port_write(unsigned int address, unsigned int value) {
     switch (address) {
         case 0x49000000:
             printf("Write OBIO_PIO0A\n");
@@ -157,7 +165,7 @@ void obio_pio_port_write(unsigned int address, unsigned int value) {
 }
 
 /* check if it is requesting OBIO PIO port */
-int obio_pio_port_check(unsigned int address) {
+int m68k_device::obio_pio_port_check(unsigned int address) {
     switch (address) {
         case 0x49000000:
         case 0x49000001:
@@ -170,7 +178,7 @@ int obio_pio_port_check(unsigned int address) {
 }
 
 /*used for appending commands and data to serial IO ports*/
-void append_to_string(char **dest, const char *src, size_t *dest_size) {
+void m68k_device::append_to_string(char **dest, const char *src, size_t *dest_size) {
    size_t dest_len = strlen(*dest);
    size_t src_len = strlen(src);
    if(dest_len + src_len + 1 > *dest_size)
