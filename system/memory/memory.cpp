@@ -21,6 +21,7 @@ T readValue(const std::vector<uint8_t>& memory, size_t address) {
     for (size_t i = 0; i < sizeof(T); ++i) {
         value |= static_cast<T>(memory[address + i]) << (8 * i);
     }
+    Memory::data_bus_recorder("read", address, sizeof(T));
     return value;
 }
 
@@ -34,6 +35,7 @@ void writeValue(std::vector<uint8_t>& memory, size_t address, T value) {
     for (size_t i = 0; i < sizeof(T); ++i) {
         memory[address + i] = (value >> (8 * i)) & 0xFF;
     }
+    Memory::data_bus_recorder("write", address, sizeof(T));
 }
 
 void exit_error(const char* error_msg, unsigned int address) {
@@ -53,6 +55,26 @@ unsigned int Memory::readDisassembler32(unsigned int address) {
         exit_error("Disassembler attempted to read long from ROM address %08x\n", address);
     }
     return readValue<uint32_t>(rom, address);
+}
+
+void Memory::data_bus_recorder(const char *string, unsigned int address, unsigned int size) {
+    if(address <= ram.size())
+    {
+        printf("%s@RAM: %08x", string, address);
+
+        if(size == 1)
+        {
+            printf(" value: %02x\n", (ram[address]) );
+        }
+        else if(size == 2)
+        {
+            printf(" value: %02x%02x\n", ram[address], ram[address+1] );
+        }
+        else if(size == 4)
+        {
+            printf(" value: %02x%02x%02x%02x\n", ram[address], ram[address+1], ram[address+2], ram[address+3]);
+        }
+    }
 }
 
 // Read methods

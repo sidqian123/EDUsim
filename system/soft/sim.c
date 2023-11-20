@@ -66,55 +66,6 @@ void instruction_hook(unsigned int pc)
     // printf("Current value of D2: %08x\n",r);
 }
 
-/* Print the address and data bus */
-void data_bus_recorder(const char *string, unsigned int address, unsigned int size) {
-    if(address <= MAX_RAM)
-        {
-            printf("%s@RAM: %08x", string, address);
-        
-        if(size == 1)
-        {
-            printf(" value: %02x\n", (g_mem[address]) );
-        }
-        else if(size == 2)
-        {
-            printf(" value: %02x%02x\n", g_mem[address], g_mem[address+1] );
-        }
-        else if(size == 4)
-        {
-            printf(" value: %02x%02x%02x%02x\n", g_mem[address], g_mem[address+1], g_mem[address+2], g_mem[address+3]);
-        }
-    }    
-}
-
-/* Exit with an error message.  Use printf syntax. */
-void exit_error(char* fmt, ...)
-{
-    static int guard_val = 0;
-    char buff[100];
-    unsigned int pc;
-    va_list args;
-
-    if(guard_val)
-        return;
-    else
-        guard_val = 1;
-
-    /* FILE *out = stderr; */
-    FILE *out = stdout;
-    
-    va_start(args, fmt);
-    vfprintf(out, fmt, args);
-    va_end(args);
-    fprintf(out, "\n");
-    pc = m68k_get_reg(NULL, M68K_REG_PPC);
-    m68k_disassemble(buff, pc, M68K_CPU_TYPE_68000);
-    fprintf(out, "At %04x: %s\n", pc, buff);
-
-    exit(EXIT_FAILURE);
-}
-
-
 /*portA data 51000000 
 portA command 51000002
 portB data 51000001
