@@ -21,49 +21,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58ab39b7-4727-4aec-8bab-59afc23d0dce" name="Changes" comment="fix bug">
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/Hierarchy.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/history.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68k.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68k_in.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kconf.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kcpu.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kcpu.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kdasm.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kfpu.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kmake.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/m68kmmu.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/out.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/sim.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPU/m68k/soft/sim.h" afterDir="false" />
+    <list default="true" id="58ab39b7-4727-4aec-8bab-59afc23d0dce" name="Changes" comment="change dir">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/c_cpp_properties.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CPU/m68k/soft/sim.c" beforeDir="false" afterPath="$PROJECT_DIR$/CPU/m68k/soft/sim.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/device.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/device/device.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/compact/c_compact.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/CPU/m68k/soft/compact/c_compact.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/compact/c_compat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CPU/m68k/soft/compact/c_compat.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/memory/memory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/device/memory/memory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/memory/memory.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/device/memory/memory.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/Hierarchy.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/history.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68k.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68k_in.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kconf.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kcpu.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kcpu.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kdasm.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kfpu.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kmake.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kmmu.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kops.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/m68kops.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/out.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/readme.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/sim.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/soft/sim.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,8 +102,10 @@
       <recent name="$PROJECT_DIR$/CPU_sim" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/system/soft" />
+      <recent name="$PROJECT_DIR$/CPU/m68k/soft" />
+      <recent name="$PROJECT_DIR$/device" />
       <recent name="$PROJECT_DIR$/CPU/m68k" />
+      <recent name="$PROJECT_DIR$/system/soft" />
     </key>
   </component>
   <component name="RunManager" selected="Makefile Application.all">
@@ -154,6 +117,11 @@
     <configuration name="edusim" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="EDUsim" TARGET_NAME="edusim" CONFIG_NAME="edusim" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -175,7 +143,7 @@
       <workItem from="1700242653492" duration="3530000" />
       <workItem from="1700440848970" duration="3783000" />
       <workItem from="1700445253146" duration="2449000" />
-      <workItem from="1700509449851" duration="1376000" />
+      <workItem from="1700509449851" duration="2675000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1699717644351</created>
@@ -247,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1700447054143</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="change dir">
+      <created>1700510933009</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700510933009</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +247,7 @@
     <MESSAGE value="fixed memory" />
     <MESSAGE value="update memory" />
     <MESSAGE value="fix bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
+    <MESSAGE value="change dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="change dir" />
   </component>
 </project>

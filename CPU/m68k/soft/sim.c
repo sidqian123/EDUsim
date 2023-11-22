@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
-#include "system/compact/c_compact.hpp"
+#include "compact/c_compact.hpp"
 
 
 #define MAX_ROM 0xfff                           /* Memory size for rom */

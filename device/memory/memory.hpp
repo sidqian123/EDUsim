@@ -30,7 +30,7 @@ public:
     static unsigned int readDisassembler16(unsigned int address);
     static unsigned int readDisassembler32(unsigned int address);
 
-    static void data_bus_recorder(const char *string, unsigned int address, unsigned int size)
+    static void data_bus_recorder(const char *string, unsigned int address, unsigned int size);
 };
 
 #endif // MEMORY_H

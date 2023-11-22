@@ -1,7 +1,7 @@
 #ifndef M68K_DEVICE_H
 #define M68K_DEVICE_H
 
-#include "device.hpp"
+#include "device/device.hpp"
 #define BUF_STEP_SIZE 100
 
 class m68k_device : public Device {
