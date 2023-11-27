@@ -22,9 +22,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58ab39b7-4727-4aec-8bab-59afc23d0dce" name="Changes" comment="change dir">
+      <change afterPath="$PROJECT_DIR$/device/memory/ram.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/device/memory/ram.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/device/memory/rom.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/device/memory/rom.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CPU/m68k/soft/sim.c" beforeDir="false" afterPath="$PROJECT_DIR$/CPU/m68k/soft/sim.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/device/memory/memory.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/device/memory/memory.hpp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +107,7 @@
       <recent name="$PROJECT_DIR$/CPU_sim" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/device/obio" />
       <recent name="$PROJECT_DIR$/CPU/m68k/soft" />
       <recent name="$PROJECT_DIR$/device" />
       <recent name="$PROJECT_DIR$/CPU/m68k" />
@@ -144,6 +150,7 @@
       <workItem from="1700440848970" duration="3783000" />
       <workItem from="1700445253146" duration="2449000" />
       <workItem from="1700509449851" duration="2675000" />
+      <workItem from="1700681838997" duration="5449000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1699717644351</created>

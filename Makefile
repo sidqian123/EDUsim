@@ -7,17 +7,17 @@ LDFLAGS =
 
 # Source files
 SOURCES = edusim.cpp \
-          CPU/m68k/luna_cpu.cpp \
-          device/m68k_device.cpp \
-          compact/c_compat.cpp \
-          system/memory/memory.cpp \
-          system/soft/m68k_in.c \
-          system/soft/m68kcpu.c \
-          system/soft/m68kdasm.c \
-          system/soft/m68kfpu.c \
-          system/soft/m68kmake.c \
-          system/soft/m68kops.c \
-          system/soft/sim.c
+          CPU/m68k/soft/c_compat.cpp \
+          CPU/m68k/soft/m68k_in.c \
+          CPU/m68k/soft/m68kcpu.c \
+          CPU/m68k/soft/m68kdasm.c \
+          CPU/m68k/soft/m68kfpu.c \
+          CPU/m68k/soft/m68kmake.c \
+          CPU/m68k/soft/m68kops.c \
+          CPU/m68k/soft/sim.c \
+          device/memory/ram.cpp \
+          device/memory/rom.cpp \
+          device/obio/m68k_device.cpp
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -46,6 +46,7 @@ clean:
 	rm -f $(TARGET) $(OBJECTS)
 
 # Dependencies
-system/compact/c_compat.o: CPU/m68k/soft/compact device/memory
-system/memory/memory.o: device/memory
-device/m68k_device.o: device/obio/m68k_device.hpp
+CPU/m68k/soft/c_compat.o: CPU/m68k/soft/compact/c_compact.hpp
+device/memory/ram.o: device/memory/ram.hpp
+device/memory/rom.o: device/memory/rom.hpp
+device/obio/m68k_device.o: device/obio/m68k_device.hpp
